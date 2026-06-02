@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07070a;
+  --foreground: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgb(139 92 246 / 0.35);
+  color: #fff;
+}
+
+@keyframes name-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.name-letter {
+  background: linear-gradient(
+    105deg,
+    #fafafa 0%,
+    #e9d5ff 35%,
+    #a5f3fc 65%,
+    #fafafa 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: name-gradient 7s ease-in-out infinite;
+}
+
+.name-letter:hover {
+  animation-duration: 2.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-letter {
+    animation: none;
+    color: #fafafa;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+}
