@@ -1,15 +1,8 @@
 # Sidhant Yadav — Portfolio
 
-Personal portfolio site built with **Next.js**, **Tailwind CSS**, and **Framer Motion**.
+Personal portfolio built with **Next.js**, **Tailwind CSS**, and **Framer Motion**.
 
-## Sections
-
-- **Hero** — intro and links
-- **About** — background and coursework
-- **Projects** — curated projects with README-based summaries
-- **Contact** — email, GitHub, LinkedIn
-
-## Development
+## Local development
 
 ```bash
 npm install
@@ -18,6 +11,17 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Deploy
+## Deploy on Vercel
 
-Deploy on [Vercel](https://vercel.com) or any static host that supports Next.js.
+1. Push this repo to GitHub as **`portfolio`** under your account.
+2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import **`portfolio`**.
+3. Framework: **Next.js** (auto-detected) → **Deploy**.
+
+No environment variables required for the static portfolio.
+
+## Project structure
+
+- `src/data/profile.ts` — bio, links, intro
+- `src/data/projects.ts` — projects and video paths
+- `public/videos/` — demo screen recordings
+- `public/resume.pdf` — resume download
