@@ -21,15 +21,31 @@ const readout = localFont({
   display: "swap",
 });
 
+const title = "Sidhant Yadav — Software Engineer";
+const description =
+  "Computer Engineering student at the University of Waterloo building full-stack web apps, data pipelines and AI tools, seeking a Summer 2027 co-op.";
+
+// Preview images come from app/opengraph-image.tsx and app/twitter-image.tsx
 export const metadata: Metadata = {
-  title: "Sidhant Yadav — Computer Engineering @ Waterloo",
-  description:
-    "Computer Engineering student at the University of Waterloo, seeking a Summer 2027 co-op. Projects in full-stack development, data engineering, and AI.",
+  metadataBase: new URL("https://sidhantyadav.site"),
+  title,
+  description,
+  applicationName: "Sidhant Yadav",
+  authors: [{ name: "Sidhant Yadav", url: "https://sidhantyadav.site" }],
+  creator: "Sidhant Yadav",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Sidhant Yadav — Computer Engineering @ Waterloo",
-    description:
-      "Full-stack, data engineering and AI projects. Seeking a Summer 2027 co-op.",
     type: "website",
+    url: "/",
+    siteName: "Sidhant Yadav",
+    locale: "en_CA",
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 
