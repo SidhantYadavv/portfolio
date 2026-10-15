@@ -1,67 +1,194 @@
 @import "tailwindcss";
 
+/* Bench Scope — an instrument panel with oscilloscope screens.
+   Dark instrument body; screens sit darker than the panel so they still read as displays.
+   One accent: the CH1 yellow trace, used for traces, LEDs and highlighted text. */
 :root {
-  --background: #07070a;
-  --foreground: #fafafa;
+  --panel: #171b1a;
+  --panel-2: #212625;
+  --panel-3: #333a38;
+  --ink: #e6ebe8;
+  --ink-2: #a5b0ab;
+  --screen: #0a1113;
+  --screen-2: #132022;
+  --screen-text: #dbe6e2;
+  --screen-dim: #8fa5a0;
+
+  --ch1: #f2c230;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-panel-3: var(--panel-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-screen: var(--screen);
+  --color-screen-2: var(--screen-2);
+  --color-screen-text: var(--screen-text);
+  --color-screen-dim: var(--screen-dim);
+  --color-ch1: var(--ch1);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading-face);
+  --font-mono: var(--font-readout);
 }
 
 html {
   color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--panel);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgb(139 92 246 / 0.35);
-  color: #fff;
+  background: var(--ch1);
+  color: var(--screen);
 }
 
-@keyframes name-gradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.on-screen :focus-visible {
+  outline-color: var(--ch1);
+}
+
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Native scrollbar themed from the panel */
+html {
+  scrollbar-color: var(--panel-3) var(--panel);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
-  50% {
-    background-position: 100% 50%;
+}
+
+/* Scroll trace end marker: dim until the pen reaches it */
+.scroll-trace-end-core {
+  opacity: 0.25;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.scroll-trace-end.is-lit .scroll-trace-end-core {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--ch1));
+}
+
+/* Custom cursor (fine pointers only; enabled by Cursor.tsx once JS runs) */
+.cursor-layer {
+  display: none;
+}
+
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  .has-custom-cursor .cursor-layer {
+    display: block;
   }
 }
 
-.name-letter {
-  background: linear-gradient(
-    105deg,
-    #fafafa 0%,
-    #e9d5ff 35%,
-    #a5f3fc 65%,
-    #fafafa 100%
-  );
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: name-gradient 7s ease-in-out infinite;
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  will-change: transform;
 }
 
-.name-letter:hover {
-  animation-duration: 2.5s;
+.cursor-visible .cursor-dot,
+.cursor-visible .cursor-ring {
+  opacity: 1;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 9999px;
+  background: var(--ch1);
+  box-shadow: 0 0 8px var(--ch1);
+}
+
+.cursor-reticle {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--ch1);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  opacity: 0.75;
+  transition:
+    scale 0.3s var(--ease-out),
+    rotate 0.3s var(--ease-out),
+    fill 0.3s var(--ease-out),
+    opacity 0.3s var(--ease-out);
+}
+
+.cursor-active .cursor-reticle {
+  scale: 1.45;
+  rotate: 45deg;
+  fill: rgb(242 194 48 / 0.12);
+  opacity: 1;
+}
+
+.cursor-down .cursor-reticle {
+  scale: 0.8;
+}
+
+.cursor-active.cursor-down .cursor-reticle {
+  scale: 1.2;
+}
+
+/* Navbar logo: the mini trace scrolls one wavelength per loop */
+@keyframes nav-mark-scroll {
+  to {
+    translate: -50% 0;
+  }
+}
+
+.nav-mark-trace {
+  animation: nav-mark-scroll 2.4s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .name-letter {
+  .nav-mark-trace {
     animation: none;
-    color: #fafafa;
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
   }
 }

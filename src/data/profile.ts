@@ -1,6 +1,12 @@
 export const profile = {
   name: "Sidhant Yadav",
   role: "Computer Engineering @ University of Waterloo",
+  availability: "Seeking a Summer 2027 co-op",
+  tagline:
+    "Hi, I'm Sidhant! I study Computer Engineering at the University of Waterloo.",
+  /** Shown after the tagline on tablet and up; phones get the short version */
+  taglineMore:
+    "I care about shipping clean, reliable code from start to finish, and I'd love to bring that to your team.",
   email: "s35yadav@uwaterloo.ca",
   phone: "647 206 5316",
   github: "https://github.com/SidhantYadavv",

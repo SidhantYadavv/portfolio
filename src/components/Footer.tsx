@@ -4,14 +4,14 @@ export function Footer() {
   return (
     <footer
       id="contact"
-      className="scroll-mt-24 border-t border-white/5 py-16 text-sm text-zinc-500"
+      className="mx-auto max-w-6xl scroll-mt-14 border-t border-ink/10 px-4 py-16 text-sm text-ink-2 sm:px-6"
     >
-      <p className="text-zinc-300">Get in touch</p>
+      <p className="text-ink">Get in touch</p>
       <ul className="mt-4 space-y-2">
         <li>
           <a
             href={`mailto:${profile.email}`}
-            className="transition hover:text-zinc-200"
+            className="transition hover:text-ink"
           >
             {profile.email}
           </a>
@@ -22,7 +22,7 @@ export function Footer() {
             href={profile.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition hover:text-zinc-200"
+            className="transition hover:text-ink"
           >
             GitHub
           </a>
@@ -31,7 +31,7 @@ export function Footer() {
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition hover:text-zinc-200"
+            className="transition hover:text-ink"
           >
             LinkedIn
           </a>
@@ -40,13 +40,13 @@ export function Footer() {
             href={profile.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition hover:text-zinc-200"
+            className="transition hover:text-ink"
           >
             Resume
           </a>
         </li>
       </ul>
-      <p className="mt-12 text-xs text-zinc-600">
+      <p className="mt-12 text-xs text-ink-2">
         © {new Date().getFullYear()} {profile.name}
       </p>
     </footer>

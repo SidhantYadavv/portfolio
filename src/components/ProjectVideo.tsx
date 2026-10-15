@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from "react";
 type ProjectVideoProps = {
   src: string;
   title: string;
+  poster?: string;
 };
 
-export function ProjectVideo({ src, title }: ProjectVideoProps) {
+export function ProjectVideo({ src, title, poster }: ProjectVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
@@ -50,47 +51,42 @@ export function ProjectVideo({ src, title }: ProjectVideoProps) {
 
   if (missing) {
     return (
-      <div className="flex aspect-video flex-col items-center justify-center rounded-xl border border-dashed border-zinc-700/80 bg-zinc-950/50 px-4 text-center">
-        <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-          Video preview
-        </span>
-        <p className="mt-2 text-sm text-zinc-400">
-          Add your screen recording here:
-        </p>
-        <p className="mt-1 font-mono text-xs text-violet-400/80">
-          public/videos/{filename}
+      <div className="flex aspect-video flex-col items-center justify-center px-4 text-center">
+        <p className="text-sm text-screen-text">No signal — demo video missing.</p>
+        <p className="mt-1 font-mono text-[0.8125rem] text-screen-dim">
+          Add it at public/videos/{filename}
         </p>
       </div>
     );
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="relative aspect-video overflow-hidden rounded-xl border border-zinc-800 bg-black"
-    >
+    <div ref={containerRef} className="relative aspect-video bg-black">
       {!ready && (
-        <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/80">
-          <span className="text-xs text-zinc-500">Loading preview…</span>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-mono text-[0.8125rem] text-screen-dim">
+            Loading demo…
+          </span>
         </div>
       )}
       {ready && !inView && (
-        <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/50 to-transparent p-3">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-            Scroll to play
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/70 to-transparent p-3 pt-8">
+          <span className="font-mono text-[0.8125rem] text-screen-text">
+            Plays when in view
           </span>
         </div>
       )}
       <video
         ref={videoRef}
-        className="h-full w-full object-contain bg-black"
+        className="h-full w-full bg-black object-contain"
         src={src}
+        poster={poster}
         controls
         muted
         loop
         playsInline
         preload="metadata"
-        aria-label={`${title} demo`}
+        aria-label={`${title} demo recording`}
         onLoadedData={() => setReady(true)}
         onError={() => setMissing(true)}
       >
