@@ -3,6 +3,6 @@
 | File | Project |
 |------|---------|
 | `financial-etl.mov` | Financial News ETL & Dashboard |
-| `rag-chatbot.mov` | RAG Knowledge Chatbot |
+| `rag-chatbot.mp4` | Almagest: Citation-Grounded RAG |
 
 Clawd Video links to the live site — no local preview video.
