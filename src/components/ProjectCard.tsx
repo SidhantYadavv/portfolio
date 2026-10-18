@@ -86,6 +86,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const ch = accent;
   const headingId = `project-${index}`;
   const flip = index % 2 === 1;
+  // Screen recordings need the full width to stay legible; text moves below.
+  const wide = Boolean(project.video);
 
   return (
     <article
@@ -121,7 +123,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       </h3>
 
       <div className="mt-8 grid gap-10 sm:mt-10 lg:grid-cols-12 lg:gap-12">
-        <div className={`lg:sticky lg:top-24 lg:col-span-7 lg:self-start ${flip ? "lg:order-last" : ""}`}>
+        <div
+          className={
+            wide
+              ? "lg:col-span-12"
+              : `lg:sticky lg:top-24 lg:col-span-7 lg:self-start ${flip ? "lg:order-last" : ""}`
+          }
+        >
           <figure className="rounded-[12px] bg-panel-2 p-1.5 shadow-[inset_0_1px_0_rgb(255_255_255/0.05),0_24px_48px_-28px_rgb(0_0_0/0.9)] sm:p-2">
             <div className="on-screen overflow-hidden rounded-[7px] bg-screen">
               <div className="flex items-center justify-between gap-3 border-b border-white/5 px-3 py-2 font-mono text-[0.75rem] text-screen-dim">
@@ -140,46 +148,56 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </figure>
         </div>
 
-        <div className="lg:col-span-5">
-          <p className="text-xl leading-snug text-ink sm:text-[1.375rem]">
+        <div
+          className={
+            wide
+              ? "lg:col-span-12 lg:grid lg:grid-cols-12 lg:gap-x-12"
+              : "lg:col-span-5"
+          }
+        >
+          <p
+            className={`text-xl leading-snug text-ink sm:text-[1.375rem] ${wide ? "lg:col-span-5" : ""}`}
+          >
             {project.overview}
           </p>
 
-          <h4 className="mt-8 text-[0.9375rem] font-semibold text-ink">
-            What I built
-          </h4>
-          <ul className="mt-3 space-y-3 text-ink-2">
-            {project.built.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span
-                  aria-hidden
-                  className={`mt-[0.7em] h-px w-3 shrink-0 ${ch.bg}`}
-                />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+          <div className={wide ? "lg:col-span-7" : ""}>
+            <h4 className={`mt-8 font-mono text-[0.8125rem] font-medium tracking-[0.08em] uppercase ${ch.text} ${wide ? "lg:mt-0" : ""}`}>
+              What I built
+            </h4>
+            <ul className="mt-4 space-y-4 text-lg leading-relaxed text-ink">
+              {project.built.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span
+                    aria-hidden
+                    className={`mt-[0.8em] h-0.5 w-4 shrink-0 ${ch.bg}`}
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-          <h4 className="mt-8 text-[0.9375rem] font-semibold text-ink">
-            Result
-          </h4>
-          <p className={`mt-2 font-display text-[1.75rem] leading-tight font-bold ${ch.text}`}>
-            {project.highlight}
-          </p>
+            <h4 className={`mt-8 font-mono text-[0.8125rem] font-medium tracking-[0.08em] uppercase ${ch.text}`}>
+              Result
+            </h4>
+            <p className={`mt-2 font-display text-[2.25rem] leading-tight font-bold ${ch.text}`}>
+              {project.highlight}
+            </p>
 
-          <h4 className="mt-8 text-[0.9375rem] font-semibold text-ink">
-            Stack
-          </h4>
-          <ul className="mt-3 flex flex-wrap gap-2 font-mono text-[0.8125rem]">
-            {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-[4px] border border-ink/15 px-2 py-1 text-ink-2"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
+            <h4 className={`mt-8 font-mono text-[0.8125rem] font-medium tracking-[0.08em] uppercase ${ch.text}`}>
+              Stack
+            </h4>
+            <ul className="mt-4 flex flex-wrap gap-2 font-mono text-[0.875rem]">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-[4px] border border-ink/25 bg-ink/5 px-2.5 py-1 text-ink"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </article>

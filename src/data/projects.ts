@@ -44,23 +44,8 @@ export const projects: Project[] = [
     href: "https://clawdvideo.com",
   },
   {
-    title: "Financial News ETL & Dashboard",
-    channel: 2,
-    overview:
-      "Production-grade ETL pipeline that extracts daily financial news via REST APIs and loads structured records into a relational database.",
-    built: [
-      "Transforms data with Pandas and runs VADER sentiment analysis on every article.",
-      "Designed a schema with SQLAlchemy and containerized the backend with Docker.",
-      "A Next.js/React dashboard with a glassmorphism UI for live sentiment trends and macroeconomic insights pulled directly from the database.",
-    ],
-    highlight: "Hands-off automation after deployment",
-    tags: ["Python", "Prefect", "Pandas", "SQLAlchemy", "Docker", "Next.js"],
-    href: "https://github.com/SidhantYadavv/financial-etl-pipeline",
-    video: "/videos/financial-etl.mov",
-  },
-  {
     title: "Almagest: Citation-Grounded RAG for Research Papers",
-    channel: 3,
+    channel: 2,
     overview:
       "Full-stack RAG app that streams cited answers over research papers via SSE; each citation opens the source PDF with the exact passage highlighted via PDF.js.",
     built: [
@@ -82,6 +67,21 @@ export const projects: Project[] = [
     ],
     href: "https://github.com/SidhantYadavv/rag-knowledge-chatbot",
     video: "/videos/rag-chatbot.mp4",
+  },
+  {
+    title: "Financial News ETL & Dashboard",
+    channel: 3,
+    overview:
+      "Production-grade ETL pipeline that extracts daily financial news via REST APIs and loads structured records into a relational database.",
+    built: [
+      "Transforms data with Pandas and runs VADER sentiment analysis on every article.",
+      "Designed a schema with SQLAlchemy and containerized the backend with Docker.",
+      "A Next.js/React dashboard with a glassmorphism UI for live sentiment trends and macroeconomic insights pulled directly from the database.",
+    ],
+    highlight: "Hands-off automation after deployment",
+    tags: ["Python", "Prefect", "Pandas", "SQLAlchemy", "Docker", "Next.js"],
+    href: "https://github.com/SidhantYadavv/financial-etl-pipeline",
+    video: "/videos/financial-etl.mov",
   },
   {
     title: "Embedded Traffic Control System",
